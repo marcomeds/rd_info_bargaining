@@ -207,16 +207,3 @@ replace prob_ganar_treat = prob_ganar_treat/100 if prob_ganar_treat>1
 *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 save "$directorio\DB\treatment_data.dta", replace
-
-
-
-********************************************************************************
-*						     	Base informatica					  		   *
-********************************************************************************
-do "$directorio\DoFiles\cleaning\expedientes_cleaning.do"
-
-*Name cleaning
-do "$directorio\DoFiles\cleaning\clean_exact_match.do"
-global threshold_similscore = 0.94
-do "$directorio\DoFiles\cleaning\clean_fuzzy_match.do"
-

@@ -1,5 +1,5 @@
 # Indicate path of Rscripts files
-setwd('C:/Users/isaac/Dropbox/Apps/ShareLaTeX/information_lawyer_quality/RScripts')
+setwd('C:/Users/isaac/Dropbox/Apps/ShareLaTeX/rd_information_bargaining/RScripts')
 
 # Script that defines functions and installs required packages.
 # IMPORTANT : Required to use Rtools 'https://cran.rstudio.com/bin/windows/Rtools
