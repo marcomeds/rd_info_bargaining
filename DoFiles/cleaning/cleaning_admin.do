@@ -86,20 +86,8 @@ drop grado_estudios
 ****************************************
 
 *Tenure	
-replace antiguedad = (fecha_salida - fecha_entrada)/365 if missing(antiguedad)
+replace antiguedad = (fecha_salida - fecha_entrada)/365 
 replace antiguedad = . if antiguedad<0 | antiguedad>60
-		 
-* Hack porque no hay antiguedad antes de esa fecha
-replace antiguedad = . if fecha_alta <= date("2017-07-14","YMD")
-
-*Imputation with mean for missing values
-qui su antiguedad
-replace antiguedad = `r(mean)' if missing(antiguedad)
-
-*Daily wage
-*Imputation with mean for missing values
-qui su salario_diario
-replace salario_diario = `r(mean)' if missing(salario_diario)
 
 gen na_prob = 0
 replace na_prob = 1 if missing(prob_ganar)

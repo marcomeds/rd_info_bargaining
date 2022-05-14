@@ -1,14 +1,127 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+ \documentclass[oneside,11pt]{article}
 
-\title{rd_information_bargaining}
-\author{Isaac Meza}
-\date{May 2022}
+\input{preamble.tex}
+%%% HELPER CODE FOR DEALING WITH EXTERNAL REFERENCES
+\usepackage{xr}
+\makeatletter
+\newcommand*{\addFileDependency}[1]{
+  \typeout{(#1)}
+  \@addtofilelist{#1}
+  \IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
 
+
+\newcommand*{\myexternaldocument}[1]{
+    \externaldocument{#1}
+    \addFileDependency{#1.tex}
+    \addFileDependency{#1.aux}
+}
+
+%\myexternaldocument{OA}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT
 \begin{document}
 
+
+\title{Bargaining with (more) common priors in the field \thanks{We want to thank}}
+\author{Joyce Sadka \and Enrique Seira  \and Christopher Woodruff \thanks{\protect\linespread{1}\protect\selectfont Sadka: ITAM, jsadka@itam.mx;  
+Seira: ITAM, enrique.seira@itam.mx; Woodruff (corresponding author): University of Oxford, Department of International Development, Oxford OX13TB, UK, christopher.woodruff@qeh.ox.ac.uk.} }
+\date{This draft:  \today \\[2 cm]}
+
+%\vspace{.5in}
+
+
 \maketitle
+\thispagestyle{empty}
+\begin{abstract}
+
+Several theoretical models have shown that bargaining can break down if parties have different priors about the probability of winning at trial. We test this theory in the field by studying labor conflicts. First, we run an experiment providing information about likely outcomes at trial to a treatment group that includes both plaintiff and defendants.  We show that they update expectations in the direction of the information and it makes it closer to the employers expectation, and that they settle more compared to a control group. Second, we show that providing information to only the worker has much smaller effects. Third, we exploit a discontinuity in the information provision rule and show that (otherwise identical) parties that get information with a higher predicted payment to the worker update their priors upward (and come closer together) and settle more, consistent with bargaining models of bargaining with common priors (or models increasing the bargaining power of the weakest player XXX) decreases bargaining impasses. Finally, we show that providing predictive information that is too far off from their own priors makes them update expectations less, and lowers the effect of the information on settlement rates. This suggests that they have private information on their own case and disregard information that is less consistent with their information. All in all we show that information provided to both parties increases settlement more.
+
+
+\end{abstract}
+
+\vspace{.3in}
+
+\textbf{Keywords: } 
+
+\textbf{JEL codes:} G41, C93, O16, G21
+
+\newpage
+
+\pagenumbering{arabic}
+\etocdepthtag.toc{mtchapter}
+\etocsettagdepth{mtchapter}{subsection}
+\etocsettagdepth{mtappendix}{none}
+
+
 
 \section{Introduction}
+
+[CW: There are interesting results for the Letter, but they are quite different from the Calculator. The Calculator treatment is clearer - we gave information to one party, so both empowered and incentivized the worker to settle above the threshold. In the Letter treatment, we empowered both parties equally (and hence, neither of them) and the incentives are zero-sum.] \\
+
+
+
+
+We examine outcomes of bargaining between employees claiming severance payment and their previous employers who are liable for any payments. We provide parties with estimated values of the claims derived from a coarse prediction model that partitions 400 workers into four quadrants based on their wage and tenure at the firm. The model is based on 5000 outcomes of past cases in the Mexico City Labor Court.  We exploit the sharp discontinuities in the expected value of the employees claims, identifying workers with very similar wages and tenures, but who fall on either side of cutoffs associated a large change in the expected value of the claim and identifying workers at either edge of a given partition who are therefore provided with the same prediction but who circumstances different. We find that workers with similar characteristics who are provided with higher valuations are more likely to reach a settlement with their employers and reach larger settlements when they do settle. Workers who are at the top end of the partitions - those for whom a finer model would predict higher outcomes - are less likely to settle, suggesting that they understand that the valuation provided is too low. Both of these results suggest that the workers’ expectations drive the bargaining process, perhaps because the institutions governing the bargaining process function more poorly than workers believe. 
+
+What do we learn from this? 
+\begin{itemize}
+    \item Information affects the probability of settlement, and the amount conditional on settlement. (This seems to say that workers are the constraint here. Probably that is because the court works much worse for workers than they expect, so they lower valuations are too far from what they expect. But we don't know if maybe the amounts are too low for all of the workers, even including those receiving the higher valuations.)
+    \item Workers are sophisticated enough to know that the prediction is too low, or get advice that indicates that to them.
+\end{itemize}
+
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%BIBLIOGRAPHY
+
+
+\clearpage
+\bibliographystyle{authordate1}
+%\bibliographystyle{amsalpha}
+%\bibliographystyle{AER}
+
+\bibliography{References}
+
+
+
+%\FloatBarrier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\singlespacing
+
+\section{Tables}
+
+\begin{table}[H]
+\caption{ table}
+\label{}
+\begin{center}
+%\scriptsize{\input{./Tables/Attrition.tex}}
+\end{center}
+ \scriptsize 
+%\textit{Do file: } \texttt{ss\_att.do}
+\end{table}
+
+
+\section{Figures}
+
+
+\begin{figure}[H]
+     \caption{RD design}
+    \label{rd_design}
+\begin{center}
+\begin{subfigure}{\textwidth}
+        \includegraphics[width=\textwidth]{Figuras/rd_design.pdf}
+    \end{subfigure}
+  \end{center}
+    \scriptsize 
+%\textit{Scripts: }  \texttt{optim2d\_conv.m}
+\end{figure}
+
+
 
 \end{document}
