@@ -46,7 +46,7 @@ local controls nivel_de_felicidad trabaja_actualmente  high_school reclutamiento
 *-------------------------------------------------------------------------------
 
 
-rd_plot  conflicto_arreglado antiguedad  if main_treatment==2 & inlist(quadrant,1,2), cutoff(2.67) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) covs(salario_diario `controls')	level(90)
+rd_plot conflicto_arreglado antiguedad  if main_treatment==2 & inlist(quadrant,1,2), cutoff(2.67) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) covs(salario_diario `controls')	level(90)
 
 
 

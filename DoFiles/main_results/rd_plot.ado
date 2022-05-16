@@ -1,4 +1,4 @@
-*! version 1.0.0  13may2022
+*! version 1.0.1  14may2022
 cap program drop rd_plot
 program rd_plot, rclass
 	version 17.0
@@ -7,7 +7,7 @@ program rd_plot, rclass
 	marksample touse
 	gettoken var running_var : varlist
 
-	tempvar res_y_r res_x_r res_y_l res_x_l xq_r xq_l mn_x_r mn_x_l mn_y_r mn_y_l  bs_l bs_c_l bs_r bs_c_r bs_se_l bs_se_r lo_bs_l hi_bs_l lo_bs_r hi_bs_r
+	tempvar res_y_r res_x_r res_y_l res_x_l xq_r xq_l mn_x_r mn_x_l mn_y_r mn_y_l  bs_l bs_c_l bs_r bs_c_r bs_se_l bs_se_r lo_bs_l hi_bs_l lo_bs_r hi_bs_r weights
 	
 	if ("`kernel'"=="" | "`kernel'"=="triangular") {
 		local kernel = "triangular"
@@ -33,12 +33,32 @@ program rd_plot, rclass
 
 *-------------------------------------------------------------------------------	
 
-	qui {
+	*qui {
 	*Bandwidth optimal selection.
 	rdbwselect `var' `running_var' if `touse', c(`cutoff') kernel("`kernel'") vce("`vce'") p(`p') q(`q') bwselect("`bwselect'") covs(`covs') 
 	local h_r = `e(h_mserd)'
 	local h_l = `e(h_mserd)'
+	local b_r = `e(b_mserd)'
+	local b_l = `e(b_mserd)' 
 
+	
+	*Weights for kernel
+	if ("`kernel'"=="uniform") {
+		gen `weights' = 1
+	}
+	
+	if ("`kernel'"=="triangular") {
+		gen `weights' = .
+		replace `weights' = (1/(3*`h_l'))*(1 - abs((`running_var'-`cutoff')/(3*`h_l'))) if inrange(`running_var', `=`cutoff'-3*`h_l'', `cutoff')
+		replace `weights' = (1/(3*`h_r'))*(1 - abs((`running_var'-`cutoff')/(3*`h_r'))) if inrange(`running_var', `cutoff', `=`cutoff'+3*`h_r'')
+	}
+	
+	if ("`kernel'"=="epanechnikov") {
+		gen `weights' = .
+		replace `weights' = (1/(3*`h_l'))*3/4*(1 - ((`running_var'-`cutoff')/(3*`h_l'))^2) if inrange(`running_var', `=`cutoff'-3*`h_l'', `cutoff')
+		replace `weights' = (1/(3*`h_r'))*3/4*(1 - ((`running_var'-`cutoff')/(3*`h_r'))^2) if inrange(`running_var', `cutoff', `=`cutoff'+3*`h_r'')	
+	}	
+	
 
 	*Residual computation 
 		*Above threshold
@@ -79,7 +99,7 @@ program rd_plot, rclass
 	cap drop _bs_r*		
 	bspline if `touse' & inrange(`running_var',`cutoff',`=`cutoff'+3*`h_r''), xvar(`running_var') knots(`cutoff' `=`cutoff'+`h_r'' `=`cutoff'+2*`h_r'' `=`cutoff'+3*`h_r'') p(`p') gen(_bs_r)
 			*Simple
-	reg `var' _bs_r* if `touse' & inrange(`running_var',`cutoff', `=`cutoff'+3*`h_r''), noconstant vce(`vce1')
+	reg `var' _bs_r* if `touse' & inrange(`running_var',`cutoff', `=`cutoff'+3*`h_r'') [aw = `weights'] , noconstant vce(`vce1')
 	cap drop `bs_r'
 	predict `bs_r' if e(sample)
 	predict `bs_se_r' if e(sample), stdp
@@ -87,7 +107,7 @@ program rd_plot, rclass
 	gen `hi_bs_r' = `bs_r' + invnormal(1-`=(100-`level')'/200)*`bs_se_r'
 	gen `lo_bs_r' = `bs_r' - invnormal(1-`=(100-`level')'/200)*`bs_se_r'
 			*Covariates
-	reg `var' _bs_r* `covs' if `touse' & inrange(`running_var',`cutoff', `=`cutoff'+3*`h_r''), noconstant vce(`vce1')
+	reg `var' _bs_r* `covs' if `touse' & inrange(`running_var',`cutoff', `=`cutoff'+3*`h_r'') [aw = `weights'] , noconstant vce(`vce1')
 	cap drop `bs_c_r'
 	gen `bs_c_r' = _bs_r1*e(b)[1,1] + _bs_r2*e(b)[1,2] + _bs_r3*e(b)[1,3] + _bs_r4*e(b)[1,4]  if e(sample)
 	local j = 5
@@ -104,7 +124,7 @@ program rd_plot, rclass
 	cap drop _bs_l*	
 	bspline if `touse' & inrange(`running_var',`=`cutoff'-3*`h_l'',`cutoff'), xvar(`running_var') knots(`=`cutoff'-3*`h_l'' `=`cutoff'-2*`h_l'' `=`cutoff'-`h_l'' `cutoff') p(`p') gen(_bs_l)
 			*Simple
-	reg `var' _bs_l* if `touse' & inrange(`running_var',`=`cutoff'-3*`h_l'',`cutoff'), noconstant vce(`vce1')
+	reg `var' _bs_l* if `touse' & inrange(`running_var',`=`cutoff'-3*`h_l'',`cutoff') [aw = `weights'] , noconstant vce(`vce1')
 	cap drop `bs_l'
 	predict `bs_l' if e(sample)
 	predict `bs_se_l' if e(sample), stdp
@@ -112,7 +132,7 @@ program rd_plot, rclass
 	gen `hi_bs_l' = `bs_l' + invnormal(1-`=(100-`level')'/200)*`bs_se_l'
 	gen `lo_bs_l' = `bs_l' - invnormal(1-`=(100-`level')'/200)*`bs_se_l'
 			*Covariates
-	reg `var' _bs_l* `covs' if `touse' & inrange(`running_var',`=`cutoff'-3*`h_l'',`cutoff'), noconstant vce(`vce1')
+	reg `var' _bs_l* `covs' if `touse' & inrange(`running_var',`=`cutoff'-3*`h_l'',`cutoff') [aw = `weights'] , noconstant vce(`vce1')
 	cap drop `bs_c_l'
 	gen `bs_c_l' = _bs_l1*e(b)[1,1] + _bs_l2*e(b)[1,2] + _bs_l3*e(b)[1,3] + _bs_l4*e(b)[1,4] if e(sample)
 	local j = 5
@@ -124,7 +144,7 @@ program rd_plot, rclass
 	}
 	cap drop _bs_l*
 
-	}
+	*}
 
 
 *-------------------------------------------------------------------------------
