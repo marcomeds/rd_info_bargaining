@@ -1,21 +1,21 @@
 	(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)	(11)	(12)	(13)	(14)	(15)	(16)
 VARIABLES	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado
 																
-Conventional	0.408*	0.499**	0.338	0.293	0.397**	0.359**	-0.248	-0.353	-0.0273	-0.0777	-0.179	-0.237	0.338	0.490**	1.155	-2.103
-	(0.214)	(0.198)	(0.209)	(0.217)	(0.158)	(0.150)	(0.166)	(1,517)	(0.161)	(2,673)	(0.127)	(0.147)	(0.225)	(0.220)	(1.090)	(2.141)
-Bias-corrected	0.447**	0.558***	0.324	0.205	0.420***	0.353**	-0.325*	-0.350	0.0190	-0.0259	-0.231*	-0.229	0.385*	0.541**	1.242	-2.915
-	(0.214)	(0.198)	(0.209)	(0.217)	(0.158)	(0.150)	(0.166)	(1,517)	(0.161)	(2,673)	(0.127)	(0.147)	(0.225)	(0.220)	(1.090)	(2.141)
-Robust	0.447*	0.558**	0.324	0.205	0.420**	0.353**	-0.325	-0.350	0.0190	-0.0259	-0.231	-0.229	0.385	0.541**	1.242	-2.915
-	(0.247)	(0.232)	(0.242)	(0.256)	(0.183)	(0.174)	(0.205)	(2,074)	(0.196)	(3,389)	(0.152)	(0.182)	(0.275)	(0.259)	(1.280)	(2.586)
+Conventional	0.408*	0.426**	0.338	0.302	0.397**	0.388***	-0.248	-0.344	-0.0273	0.243	-0.179	-0.222	0.338	0.512**	1.155	-1.639
+	(0.214)	(0.198)	(0.209)	(0.224)	(0.158)	(0.149)	(0.166)	(1,622)	(0.161)	(0.212)	(0.127)	(0.140)	(0.225)	(0.224)	(1.090)	(2.128)
+Bias-corrected	0.447**	0.469**	0.324	0.227	0.420***	0.387***	-0.325*	-0.342	0.0190	0.396*	-0.231*	-0.215	0.385*	0.567**	1.242	-2.207
+	(0.214)	(0.198)	(0.209)	(0.224)	(0.158)	(0.149)	(0.166)	(1,622)	(0.161)	(0.212)	(0.127)	(0.140)	(0.225)	(0.224)	(1.090)	(2.128)
+Robust	0.447*	0.469**	0.324	0.227	0.420**	0.387**	-0.325	-0.342	0.0190	0.396	-0.231	-0.215	0.385	0.567**	1.242	-2.207
+	(0.247)	(0.232)	(0.242)	(0.263)	(0.183)	(0.173)	(0.205)	(2,194)	(0.196)	(0.274)	(0.152)	(0.182)	(0.275)	(0.265)	(1.280)	(2.574)
 																
-Observations	442	424	318	303	760	727	478	458	282	269	760	727	360	341	400	386
+Observations	442	426	318	303	760	729	478	459	282	270	760	729	360	342	400	387
 Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
 bwselect	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd
 vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
-Left bandwidth	1.112	1.226	1.166	0.910	1.067	1.115	41.71	30.86	67	82.93	42.28	30.49	0.634	0.583	0.182	0.190
-Right bandwidth	1.112	1.226	1.166	0.910	1.067	1.115	41.71	30.86	67	82.93	42.28	30.49	0.634	0.583	0.182	0.190
-Effective obs (left)	65	67	51	38	109	108	98	65	62	73	137	89	146	123	14	14
-Effective obs (right)	42	43	21	15	61	57	69	59	58	68	111	89	44	35	7	7
+Left bandwidth	1.112	1.212	1.166	1.050	1.067	1.105	41.71	31.60	67	37.37	42.28	33.46	0.634	0.569	0.182	0.190
+Right bandwidth	1.112	1.212	1.166	1.050	1.067	1.105	41.71	31.60	67	37.37	42.28	33.46	0.634	0.569	0.182	0.190
+Effective obs (left)	65	66	51	45	109	107	98	68	62	31	137	103	146	120	14	14
+Effective obs (right)	42	42	21	17	61	57	69	59	58	35	111	93	44	34	7	7
 p	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 q	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2
 Standard errors in parentheses																

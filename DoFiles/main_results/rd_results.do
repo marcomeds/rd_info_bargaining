@@ -41,7 +41,7 @@ replace normp = . if missing(antiguedad) | missing(salario_diario)
 replace normp = (normp)^(1/2)
 
 
-local controls nivel_de_felicidad trabaja_actualmente  high_school reclutamiento dummy_confianza horas_sem  dummy_sarimssinfo  c_min_indem  c_min_total top_demandado  mujer
+local controls nivel_de_felicidad  high_school reclutamiento dummy_confianza horas_sem  dummy_sarimssinfo  c_min_indem  c_min_total top_demandado  mujer
 
 *-------------------------------------------------------------------------------
 
