@@ -94,145 +94,13 @@ What do we learn from this?
 \newpage
 \singlespacing
 
-\section{Tables}
-
-\begin{landscape}
-\begin{table}[H]
-\caption{Balance table (Calculator treatment, running variable : Tenure)}
-\label{balance_table_t2_tenure}
-\begin{center}
-\resizebox{1.5\textwidth}{!}{
-\scriptsize{\input{./Tables/rd_balance_t2_1.tex}}
-}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{balance\_table.do}
-\end{table}
-
-\begin{table}[H]
-\caption{Balance table (Calculator treatment, running variable : Daily wage)}
-\label{balance_table_t2_dw}
-\begin{center}
-\resizebox{1.5\textwidth}{!}{
-\scriptsize{\input{./Tables/rd_balance_t2_2.tex}}
-}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{balance\_table.do}
-\end{table}
-
-\begin{table}[H]
-\caption{Balance table (Calculator treatment, running variable : Tenure \& Daily wage)}
-\label{balance_table_t2_tenuredw}
-\begin{center}
-\resizebox{1.5\textwidth}{!}{
-\scriptsize{\input{./Tables/rd_balance_t2_3.tex}}
-}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{balance\_table.do}
-\end{table}
-
-%__________________________________________________________________________
-%__________________________________________________________________________
-%__________________________________________________________________________
-%__________________________________________________________________________
-
-\begin{table}[H]
-\caption{Balance table (Calculator + letter treatment, running variable : Tenure)}
-\label{balance_table_t3_tenure}
-\begin{center}
-\resizebox{1.5\textwidth}{!}{
-\scriptsize{\input{./Tables/rd_balance_t3_1.tex}}
-}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{balance\_table.do}
-\end{table}
-
-\begin{table}[H]
-\caption{Balance table (Calculator + letter treatment, running variable : Daily wage)}
-\label{balance_table_t3_dw}
-\begin{center}
-\resizebox{1.5\textwidth}{!}{
-\scriptsize{\input{./Tables/rd_balance_t3_2.tex}}
-}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{balance\_table.do}
-\end{table}
-
-\begin{table}[H]
-\caption{Balance table (Calculator + letter treatment, running variable : Tenure \& Daily wage)}
-\label{balance_table_t3_tenuredw}
-\begin{center}
-\resizebox{1.5\textwidth}{!}{
-\scriptsize{\input{./Tables/rd_balance_t3_3.tex}}
-}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{balance\_table.do}
-\end{table}
-
-\end{landscape}
-
-%__________________________________________________________________________
-%__________________________________________________________________________
-%__________________________________________________________________________
-%__________________________________________________________________________
-
-\begin{table}[H]
-\caption{RD main results (running variable : Tenure)}
-\label{rd_sett_1}
-\begin{center}
-\scriptsize{\input{./Tables/rd_sett_1.tex}}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{rd\_results.do}
-\end{table}
-
-\begin{table}[H]
-\caption{RD main results (running variable : Daily wage)}
-\label{rd_sett_2}
-\begin{center}
-\scriptsize{\input{./Tables/rd_sett_2.tex}}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{rd\_results.do}
-\end{table}
-
-\begin{table}[H]
-\caption{RD main results (running variable : Tenure \& Daily wage)}
-\label{rd_sett_3}
-\begin{center}
-\scriptsize{\input{./Tables/rd_sett_3.tex}}
-\end{center}
- \scriptsize 
-\textit{Do file: } \texttt{rd\_results.do}
-\end{table}
-
-
-\section{Figures}
 
 
 \begin{figure}[H]
      \caption{RD design}
     \label{rd_design}
 \begin{center}
-\begin{subfigure}{\textwidth}
-        \includegraphics[width=\textwidth]{Figuras/rd_design.pdf}
-    \end{subfigure}
-  \end{center}
-    \scriptsize 
-%\textit{Scripts: }  \texttt{optim2d\_conv.m}
-\end{figure}
-
-
-\begin{figure}[H]
-     \caption{RD design}
-    \label{rd_design}
-\begin{center}
-\begin{subfigure}{\textwidth}
+\begin{subfigure}{0.75\textwidth}
         \includegraphics[width=\textwidth]{Figuras/scatter_rddesign.pdf}
     \end{subfigure}
   \end{center}
@@ -241,35 +109,22 @@ What do we learn from this?
 \end{figure}
 
 
-
 \begin{figure}[H]
      \caption{Manipulation test}
     \label{manipulation_test}
 \begin{center}
 \begin{subfigure}{0.49\textwidth}
-\caption{II vs I (Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/mtp_tenure_1_2.pdf}
+\caption{Tenure}
+        \includegraphics[width=\textwidth]{Figuras/mtp_tenure.pdf}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
-\caption{III vs IV (Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/mtp_tenure_3_4.pdf}
+\caption{Daily wage}
+        \includegraphics[width=\textwidth]{Figuras/mtp_dw.pdf}
     \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
-\caption{III vs II (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/mtp_dw_2_3.pdf}
+\caption{Tenure \& Daily wage}
+        \includegraphics[width=\textwidth]{Figuras/mtp_index.pdf}
     \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
-\caption{IV vs I (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/mtp_dw_4_1.pdf}
-    \end{subfigure}    
-\begin{subfigure}{0.49\textwidth}
-\caption{II vs IV (Tenure \& Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/mtp_index_2_4.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
-\caption{III vs I (Tenure \& Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/mtp_index_1_3.pdf}
-    \end{subfigure}        
   \end{center}
   
     \scriptsize Manipulation testing based on density continuity.
@@ -279,48 +134,75 @@ What do we learn from this?
 
 
 
+\begin{landscape}
+\begin{table}[H]
+\caption{Balance table (Calculator treatment)}
+\label{balance_table_t2_tenure}
+\begin{center}
+\resizebox{1.5\textwidth}{!}{
+\scriptsize{\input{./Tables/rd_balance_t2.tex}}
+}
+\end{center}
+ \scriptsize 
+\textit{Do file: } \texttt{balance\_table.do}
+\end{table}
+
+
+\begin{table}[H]
+\caption{Balance table (Calculator + letter treatment)}
+\label{balance_table_t2_tenure}
+\begin{center}
+\resizebox{1.5\textwidth}{!}{
+\scriptsize{\input{./Tables/rd_balance_t3.tex}}
+}
+\end{center}
+ \scriptsize 
+\textit{Do file: } \texttt{balance\_table.do}
+\end{table}
+
+
+\end{landscape}
+
+%__________________________________________________________________________
+%__________________________________________________________________________
+%__________________________________________________________________________
+%__________________________________________________________________________
+
+\begin{table}[H]
+\caption{RD main results}
+\label{rd_sett_1}
+\begin{center}
+\scriptsize{\input{./Tables/rd_sett.tex}}
+\end{center}
+ \scriptsize 
+\textit{Do file: } \texttt{rd\_results.do}
+\end{table}
+
+\newpage
 
 \begin{figure}[H]
      \caption{RD plots (Calculator treatment)}
     \label{rd_t2}
 \begin{center}
 \begin{subfigure}{0.31\textwidth}
-\caption{II vs I (Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_1_2_2.pdf}
+
+\caption{Tenure}
+        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_tenure_2.pdf}
     \end{subfigure}
     \begin{subfigure}{0.31\textwidth}
-\caption{III vs IV (Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_3_4_2.pdf}
-    \end{subfigure}
-\begin{subfigure}{0.31\textwidth}
-\caption{(II \& III) vs (I \& IV)	(Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_12_34_2.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.31\textwidth}
-\caption{III vs II (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_2_3_2.pdf}
+\caption{Daily wage}
+        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_dw_2.pdf}
     \end{subfigure}        
     \begin{subfigure}{0.31\textwidth}
-\caption{IV vs I (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_1_4_2.pdf}
-    \end{subfigure}    
-    \begin{subfigure}{0.31\textwidth}
-\caption{(III \& IV) vs (I \& II) (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_12_34_2.pdf}
-    \end{subfigure}       
-\begin{subfigure}{0.31\textwidth}
-\caption{II vs IV (Tenure \& Daily wage)}
+\caption{Tenure \& Daily wage}
         \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_2_4_2.pdf}
     \end{subfigure}
-    \begin{subfigure}{0.31\textwidth}
-\caption{III vs I (Tenure \& Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_1_3_2.pdf}
-    \end{subfigure}        
   \end{center}
   
     \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines. \textcolor{yellow}{Me falta ajustar cosas de inferencia cuando uso los splines.}
 %\textit{Scripts: }  \texttt{plot\_rd.do}
 \end{figure}
+
 
 
 %__________________________________________________________________________
@@ -334,42 +216,24 @@ What do we learn from this?
     \label{rd_t3}
 \begin{center}
 \begin{subfigure}{0.31\textwidth}
-\caption{II vs I (Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_1_2_3.pdf}
+
+\caption{Tenure}
+        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_tenure_3.pdf}
     \end{subfigure}
     \begin{subfigure}{0.31\textwidth}
-\caption{III vs IV (Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_3_4_3.pdf}
-    \end{subfigure}
-\begin{subfigure}{0.31\textwidth}
-\caption{(II \& III) vs (I \& IV)	(Tenure)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_12_34_3.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.31\textwidth}
-\caption{III vs II (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_2_3_3.pdf}
+\caption{Daily wage}
+        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_dw_3.pdf}
     \end{subfigure}        
     \begin{subfigure}{0.31\textwidth}
-\caption{IV vs I (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_1_4_3.pdf}
-    \end{subfigure}    
-    \begin{subfigure}{0.31\textwidth}
-\caption{(III \& IV) vs (I \& II) (Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_12_34_3.pdf}
-    \end{subfigure}       
-\begin{subfigure}{0.31\textwidth}
-\caption{II vs IV (Tenure \& Daily wage)}
+\caption{Tenure \& Daily wage}
         \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_2_4_3.pdf}
     \end{subfigure}
-    \begin{subfigure}{0.31\textwidth}
-\caption{III vs I (Tenure \& Daily wage)}
-        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_1_3_3.pdf}
-    \end{subfigure}        
   \end{center}
   
     \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines. \textcolor{yellow}{Me falta ajustar cosas de inferencia cuando uso los splines.}
 %\textit{Scripts: }  \texttt{plot\_rd.do}
 \end{figure}
+
 
 
 

@@ -52,43 +52,20 @@ capture erase "$directorio/Tables/reg_results/rd_balance_t`t'.xls"
 capture erase "$directorio/Tables/reg_results/rd_balance_t`t'.txt"
 
 ***********************		   		Tenure				************************
-* I vs II
-foreach var of varlist `controls' {
-	rdrobust `var' antiguedad if main_treatment==`t' & inlist(quadrant,1,2), c(2.67) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
-}
-
-* III vs IV
-foreach var of varlist `controls' {
-	rdrobust `var' antiguedad if main_treatment==`t' & inlist(quadrant,3,4), c(2.67) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
-}
-
 * Pooled
 foreach var of varlist `controls' {
 	rdrobust `var' antiguedad if main_treatment==`t', c(2.67) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+	su `var' if e(sample) & corte_tenure==0
+	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q), Control mean, `r(mean)') addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 }
 
 
 ***********************		   		  Wage				************************
-
-* III vs II
-foreach var of varlist `controls' {
-	rdrobust `var' salario_diario if main_treatment==`t' & inlist(quadrant,2,3), c(211) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
-}
-
-* IV vs I
-foreach var of varlist `controls' {
-	rdrobust `var' salario_diario if main_treatment==`t' & inlist(quadrant,4,1), c(211) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
-}
-
 * Pooled
 foreach var of varlist `controls' {
 	rdrobust `var' salario_diario if main_treatment==`t', c(211) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+	su `var' if e(sample) & corte_dw==0
+	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q), Control mean, `r(mean)') addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 }
 
 
@@ -100,16 +77,9 @@ gen t = (corte_dw==0 & corte_tenure==1) if !missing(corte_dw) & !missing(corte_t
 gen index = normp*(2*t-1)
 foreach var of varlist `controls' {
 	rdrobust `var' index if main_treatment==`t' & inlist(quadrant,2,4), c(0) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+	su `var' if e(sample) & quadrant==2
+	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q), Control mean, `r(mean)') addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 }
 
-* III vs I
-cap drop t index
-gen t = (corte_dw==1 & corte_tenure==1) if !missing(corte_dw) & !missing(corte_tenure)
-gen index = normp*(2*t-1)
-foreach var of varlist `controls' {
-	rdrobust `var' index if main_treatment==`t' & inlist(quadrant,1,3), c(0) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) 
-	outreg2 using "$directorio/Tables/reg_results/rd_balance_t`t'.xls", addstat(Left bandwidth,  e(h_l), Right bandwidth,  e(h_r), Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
-}
 
 }

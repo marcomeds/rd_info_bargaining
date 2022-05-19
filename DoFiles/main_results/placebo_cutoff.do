@@ -41,87 +41,85 @@ replace normp = . if missing(antiguedad) | missing(salario_diario)
 replace normp = (normp)^(1/2)
 
 
-local controls nivel_de_felicidad  high_school reclutamiento dummy_confianza horas_sem  dummy_sarimssinfo  c_min_indem  c_min_total top_demandado  mujer
-
 *-------------------------------------------------------------------------------
 *Cutoffs
-range cutoff_tenure .67 4.67 100
-replace cutoff_tenure = 2.67 if _n==101
+gen cutoff_tenure = .
+replace cutoff_tenure = 0.19 in 1
+replace cutoff_tenure = 0.30 in 2
+replace cutoff_tenure = 0.75 in 3
+replace cutoff_tenure = 1.68 in 4
+replace cutoff_tenure = 2.67 in 5
+replace cutoff_tenure = 4.26 in 6
+replace cutoff_tenure = 9.45 in 7
+replace cutoff_tenure = 12.89 in 8
+replace cutoff_tenure = 7.5 in 9
+replace cutoff_tenure = 8.5 in 10
+
+gen cutoff_dw = .
+replace cutoff_dw = 106 in 1
+replace cutoff_dw = 133 in 2
+replace cutoff_dw = 171 in 3
+replace cutoff_dw = 211 in 4
+replace cutoff_dw = 233 in 5
+replace cutoff_dw = 346 in 6
+replace cutoff_dw = 533 in 7
+replace cutoff_dw = 666 in 8
+replace cutoff_dw = 450 in 9
+replace cutoff_dw = 500 in 10
+
 levelsof cutoff_tenure, local(c_vals_tenure) 
-	
-range cutoff_dw 111 311 100
-replace cutoff_dw = 211 if _n==101
 levelsof cutoff_dw, local(c_vals_dw) 	
-			
-			
+
+
 foreach var of varlist conflicto_arreglado {
 foreach t in 2 3 {
-	matrix rd_1_2_`t' = J(101,4,.)
-	matrix rd_3_4_`t' = J(101,4,.)
-	matrix rd_23_14_`t' = J(101,4,.)
-
-	matrix rd_2_3_`t' = J(101,4,.)
-	matrix rd_1_4_`t' = J(101,4,.)
-	matrix rd_12_34_`t' = J(101,4,.)
+	matrix rd_tenure_`t' = J(10,4,.)
+	matrix rd_dw_`t' = J(10,4,.)
+	
+	rdbwselect `var' antiguedad if main_treatment==`t', c(2.67) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
+	local h_r = `e(h_mserd)'
+	local h_l = `e(h_mserd)'
+	local b_r = `e(b_mserd)'
+	local b_l = `e(b_mserd)' 
+	
 	
 	local j = 1
 	noi di " "
-	noi _dots 0, title(Loop through cutoffs) reps(100)
+	noi _dots 0, title(Loop through cutoffs) reps(10)
 	noi di " "
 	foreach c of local c_vals_tenure {
 		***********************		   		Tenure				************************
-		* I vs II
-		qui rdrobust `var' antiguedad if main_treatment==`t' & inlist(quadrant,1,2), c(`c') all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) covs(salario_diario `controls')
-		matrix rd_1_2_`t'[`j',1] = e(tau_bc)
-		matrix rd_1_2_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_1_2_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_1_2_`t'[`j',4] = `c'
-
-		* III vs IV
-		qui rdrobust `var' antiguedad if main_treatment==`t' & inlist(quadrant,3,4), c(`c') all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) covs(salario_diario `controls')
-		matrix rd_3_4_`t'[`j',1] = e(tau_bc)
-		matrix rd_3_4_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_3_4_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_3_4_`t'[`j',4] = `c'		
-
 		* Pooled
-		qui rdrobust `var' antiguedad if main_treatment==`t', c(`c') all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) covs(salario_diario `controls')
-		matrix rd_23_14_`t'[`j',1] = e(tau_bc)
-		matrix rd_23_14_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_23_14_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_23_14_`t'[`j',4] = `c'		
+		qui rdrobust `var' antiguedad if main_treatment==`t', c(`c') all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) h(`h_l' `h_r') b(`b_l' `b_r')
+		matrix rd_tenure_`t'[`j',1] = e(tau_bc)
+		matrix rd_tenure_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
+		matrix rd_tenure_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
+		matrix rd_tenure_`t'[`j',4] = `c'		
 		
 		noi _dots `j' 0	
 		local j = `j' + 1
 	}
 	
+	
+		rdbwselect `var' salario_diario if main_treatment==`t', c(211) all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5)
+	local h_r = `e(h_mserd)'
+	local h_l = `e(h_mserd)'
+	local b_r = `e(b_mserd)'
+	local b_l = `e(b_mserd)' 
+	
+	
 	local j = 1
 	noi di " "
-	noi _dots 0, title(Loop through cutoffs) reps(100)
+	noi _dots 0, title(Loop through cutoffs) reps(10)
 	noi di " "
 	foreach c of local c_vals_dw {
 		***********************		   		  Wage				************************
-
-		* III vs II
-		qui rdrobust `var' salario_diario if main_treatment==`t' & inlist(quadrant,2,3), c(`c') all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) covs(antiguedad `controls')
-		matrix rd_2_3_`t'[`j',1] = e(tau_bc)
-		matrix rd_2_3_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_2_3_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_2_3_`t'[`j',4] = `c'
-		
-		* IV vs I
-		qui rdrobust `var' salario_diario if main_treatment==`t' & inlist(quadrant,4,1), c(`c') all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) covs(antiguedad `controls')
-		matrix rd_1_4_`t'[`j',1] = e(tau_bc)
-		matrix rd_1_4_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_1_4_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_1_4_`t'[`j',4] = `c'
-
 		* Pooled
-		qui rdrobust `var' salario_diario if main_treatment==`t', c(`c') all kernel(triangular) p(1) q(2) bwselect(mserd) vce(nncluster fecha_alta 5) covs(antiguedad `controls')
-		matrix rd_12_34_`t'[`j',1] = e(tau_bc)
-		matrix rd_12_34_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_12_34_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
-		matrix rd_12_34_`t'[`j',4] = `c'
+		qui rdrobust `var' salario_diario if main_treatment==`t', c(`c') all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) h(`h_l' `h_r') b(`b_l' `b_r')
+		matrix rd_dw_`t'[`j',1] = e(tau_bc)
+		matrix rd_dw_`t'[`j',2] = e(tau_bc) - invnormal(1-10/200)*e(se_tau_rb)
+		matrix rd_dw_`t'[`j',3] = e(tau_bc) + invnormal(1-10/200)*e(se_tau_rb)
+		matrix rd_dw_`t'[`j',4] = `c'
 		
 		noi _dots `j' 0	
 		local j = `j' + 1
@@ -134,38 +132,34 @@ foreach t in 2 3 {
 ********************************************************************************
 
 forvalues t = 2/3 {
-	foreach id in 1_2_`t' 3_4_`t' 23_14_`t' {
-		cap drop rd_beta rd_lo rd_hi cutoff
-		matrix colnames rd_`id' = rd_beta rd_lo rd_hi cutoff
-		svmat rd_`id', names(col)
+	cap drop rd_beta rd_lo rd_hi cutoff
+	matrix colnames rd_tenure_`t' = rd_beta rd_lo rd_hi cutoff
+	svmat rd_tenure_`t', names(col)
 
 
-		twoway (rcap rd_hi rd_lo cutoff, color(gs7) yline(0, lcolor(black)) ) ///
-				(scatter rd_beta cutoff, msymbol(O) color(navy%70) xline(2.67, lcolor(maroon%50))) ///
-				(scatter rd_beta cutoff if rd_hi<0, msymbol(O) color(maroon%30)) ///
-				(scatter rd_beta cutoff if rd_lo>0, msymbol(O) color(maroon%30)) ///
-				(scatter rd_beta cutoff if inrange(cutoff,2.655,2.675), msymbol(S) color(maroon)) ///
-				, legend(off) graphregion(color(white)) xtitle("Cutoff") ytitle("RD estimate")
-		graph export "$directorio/Figuras/placebo_cut_`id'.pdf", replace
-	}
+	twoway (rcap rd_hi rd_lo cutoff, color(gs7) yline(0, lcolor(black))) ///
+			(scatter rd_beta cutoff, msymbol(O) color(navy%70) xline(2.67, lcolor(maroon%50))) ///
+			(scatter rd_beta cutoff if rd_hi<0, msymbol(O) color(maroon%30)) ///
+			(scatter rd_beta cutoff if rd_lo>0, msymbol(O) color(maroon%30)) ///
+			(scatter rd_beta cutoff if inrange(cutoff,2.655,2.675), msymbol(S) color(maroon)) ///
+			, legend(off) graphregion(color(white)) xtitle("Tenure Cutoff") ytitle("RD estimate")
+	graph export "$directorio/Figuras/placebo_cut_tenure_`t'.pdf", replace
 }
 
 
 forvalues t = 2/3 {
-	foreach id in 2_3_`t' 1_4_`t' 12_34_`t' {
-		cap drop rd_beta rd_lo rd_hi cutoff
-		matrix colnames rd_`id' = rd_beta rd_lo rd_hi cutoff
-		svmat rd_`id', names(col)
+	cap drop rd_beta rd_lo rd_hi cutoff
+	matrix colnames rd_dw_`t' = rd_beta rd_lo rd_hi cutoff
+	svmat rd_dw_`t', names(col)
 
 
-		twoway (rcap rd_hi rd_lo cutoff if abs(rd_hi)<1 & abs(rd_lo)<1, color(gs7) yline(0, lcolor(black)) ) ///
-				(scatter rd_beta cutoff, msymbol(O) color(navy%70) xline(211, lcolor(maroon%50))) ///
-				(scatter rd_beta cutoff if rd_hi<0, msymbol(O) color(maroon%30)) ///
-				(scatter rd_beta cutoff if rd_lo>0, msymbol(O) color(maroon%30)) ///
-				(scatter rd_beta cutoff if inrange(cutoff,210.5,211.5), msymbol(S) color(maroon)) ///
-				, legend(off) graphregion(color(white)) xtitle("Cutoff") ytitle("RD estimate")
-		graph export "$directorio/Figuras/placebo_cut_`id'.pdf", replace
-	}
+	twoway (rcap rd_hi rd_lo cutoff, color(gs7) yline(0, lcolor(black))) ///
+			(scatter rd_beta cutoff, msymbol(O) color(navy%70) xline(211, lcolor(maroon%50))) ///
+			(scatter rd_beta cutoff if rd_hi<0, msymbol(O) color(maroon%30)) ///
+			(scatter rd_beta cutoff if rd_lo>0, msymbol(O) color(maroon%30)) ///
+			(scatter rd_beta cutoff if inrange(cutoff,210.5,211.5), msymbol(S) color(maroon)) ///
+			, legend(off) graphregion(color(white)) xtitle("Daily wage Cutoff") ytitle("RD estimate")
+	graph export "$directorio/Figuras/placebo_cut_dw_`t'.pdf", replace
 }
 
 

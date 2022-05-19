@@ -40,11 +40,13 @@ egen normp = rowtotal(aux1 aux2), missing
 replace normp = . if missing(antiguedad) | missing(salario_diario)
 replace normp = (normp)^(1/2)
 
+local controls nivel_de_felicidad  high_school reclutamiento dummy_confianza horas_sem  dummy_sarimssinfo  c_min_indem  c_min_total top_demandado  mujer
+
 
 *-------------------------------------------------------------------------------
 
-foreach var of varlist conflicto_arreglado {
-foreach t in 1 {
+foreach var of varlist `controls' {
+foreach t in 2 3 {
 ***********************		   		Tenure				************************
 * Pooled 
 rd_plot `var' antiguedad  if main_treatment==`t', cutoff(2.67) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) level(90)
@@ -65,18 +67,5 @@ gen index = normp*(2*t-1)
 rd_plot `var' index  if main_treatment==`t' & inlist(quadrant,2,4), cutoff(0) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) 	level(90)
 graph export "$directorio/Figuras/rdplot_`var'_2_4_`t'.pdf", replace
 
-
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -46,18 +46,37 @@ replace normp = (normp)^(1/2)
 foreach var of varlist conflicto_arreglado {
 foreach t in 1 {
 ***********************		   		Tenure				************************
+* I vs II
+
+rd_plot `var' antiguedad  if main_treatment==`t' & inlist(quadrant,1,2), cutoff(2.67) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) 	level(90)
+graph export "$directorio/Figuras/rdplot_`var'_1_2_`t'.pdf", replace
+
+* III vs IV
+rd_plot `var' antiguedad  if main_treatment==`t' & inlist(quadrant,3,4), cutoff(2.67) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) 	level(90)
+graph export "$directorio/Figuras/rdplot_`var'_3_4_`t'.pdf", replace
+
 * Pooled 
 rd_plot `var' antiguedad  if main_treatment==`t', cutoff(2.67) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) level(90)
-graph export "$directorio/Figuras/rdplot_`var'_tenure_`t'.pdf", replace
+graph export "$directorio/Figuras/rdplot_`var'_23_14_`t'.pdf", replace
 
 
 ***********************		   		  Wage				************************
-* Pooled 
-rd_plot `var' salario_diario  if main_treatment==`t', cutoff(211) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) level(90)
-graph export "$directorio/Figuras/rdplot_`var'_dw_`t'.pdf", replace
+
+* III vs II
+rd_plot `var' salario_diario  if main_treatment==`t' & inlist(quadrant,2,3), cutoff(211) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) level(90)
+graph export "$directorio/Figuras/rdplot_`var'_2_3_`t'.pdf", replace
+
+* IV vs I
+rd_plot `var' salario_diario  if main_treatment==`t' & inlist(quadrant,1,4), cutoff(211) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) level(90)
+graph export "$directorio/Figuras/rdplot_`var'_1_4_`t'.pdf", replace
+
+* Pooled ()
+rd_plot `var' salario_diario  if main_treatment==`t', cutoff(211) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) covs(antiguedad `controls')	level(90)
+graph export "$directorio/Figuras/rdplot_`var'_12_34_`t'.pdf", replace
 
 
 ********************		   	 Tenure & Wage				********************
+
 * II vs IV
 cap drop t index
 gen t = (corte_dw==0 & corte_tenure==1) if !missing(corte_dw) & !missing(corte_tenure)
@@ -65,13 +84,15 @@ gen index = normp*(2*t-1)
 rd_plot `var' index  if main_treatment==`t' & inlist(quadrant,2,4), cutoff(0) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) 	level(90)
 graph export "$directorio/Figuras/rdplot_`var'_2_4_`t'.pdf", replace
 
+* III vs I
+cap drop t index
+gen t = (corte_dw==1 & corte_tenure==1) if !missing(corte_dw) & !missing(corte_tenure)
+gen index = normp*(2*t-1)
+rd_plot `var' index  if main_treatment==`t' & inlist(quadrant,1,3), cutoff(0) p(1) q(2) kernel(triangular) bwselect(mserd) vce(nncluster fecha_alta 5) level(90)
+graph export "$directorio/Figuras/rdplot_`var'_1_3_`t'.pdf", replace
 
 }
 }
-
-
-
-
 
 
 

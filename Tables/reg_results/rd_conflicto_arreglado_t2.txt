@@ -1,22 +1,22 @@
-	(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)	(11)	(12)	(13)	(14)	(15)	(16)
-VARIABLES	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado
-																
-Conventional	0.408*	0.426**	0.338	0.302	0.397**	0.388***	-0.248	-0.344	-0.0273	0.243	-0.179	-0.222	0.338	0.512**	1.155	-1.639
-	(0.214)	(0.198)	(0.209)	(0.224)	(0.158)	(0.149)	(0.166)	(1,622)	(0.161)	(0.212)	(0.127)	(0.140)	(0.225)	(0.224)	(1.090)	(2.128)
-Bias-corrected	0.447**	0.469**	0.324	0.227	0.420***	0.387***	-0.325*	-0.342	0.0190	0.396*	-0.231*	-0.215	0.385*	0.567**	1.242	-2.207
-	(0.214)	(0.198)	(0.209)	(0.224)	(0.158)	(0.149)	(0.166)	(1,622)	(0.161)	(0.212)	(0.127)	(0.140)	(0.225)	(0.224)	(1.090)	(2.128)
-Robust	0.447*	0.469**	0.324	0.227	0.420**	0.387**	-0.325	-0.342	0.0190	0.396	-0.231	-0.215	0.385	0.567**	1.242	-2.207
-	(0.247)	(0.232)	(0.242)	(0.263)	(0.183)	(0.173)	(0.205)	(2,194)	(0.196)	(0.274)	(0.152)	(0.182)	(0.275)	(0.265)	(1.280)	(2.574)
-																
-Observations	442	426	318	303	760	729	478	459	282	270	760	729	360	342	400	387
-Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
-bwselect	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd	mserd
-vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
-Left bandwidth	1.112	1.212	1.166	1.050	1.067	1.105	41.71	31.60	67	37.37	42.28	33.46	0.634	0.569	0.182	0.190
-Right bandwidth	1.112	1.212	1.166	1.050	1.067	1.105	41.71	31.60	67	37.37	42.28	33.46	0.634	0.569	0.182	0.190
-Effective obs (left)	65	66	51	45	109	107	98	68	62	31	137	103	146	120	14	14
-Effective obs (right)	42	42	21	17	61	57	69	59	58	35	111	93	44	34	7	7
-p	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
-q	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2
-Standard errors in parentheses																
-*** p<0.01, ** p<0.05, * p<0.1																
+	(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado	conflicto_arreglado
+						
+Conventional	0.397**	0.391***	-0.179	-0.214	0.338	0.421**
+	(0.158)	(0.150)	(0.127)	(627.5)	(0.225)	(0.197)
+Bias-corrected	0.420***	0.390***	-0.231*	-0.262	0.385*	0.476**
+	(0.158)	(0.150)	(0.127)	(627.5)	(0.225)	(0.197)
+Robust	0.420**	0.390**	-0.231	-0.262	0.385	0.476*
+	(0.183)	(0.174)	(0.152)	(805.6)	(0.275)	(0.243)
+						
+Observations	760	729	760	729	360	342
+Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
+bwselect	Manual	Manual	Manual	Manual	Manual	Manual
+vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
+Left bandwidth	1.067	1.067	42.28	42.28	0.634	0.634
+Right bandwidth	1.067	1.067	42.28	42.28	0.634	0.634
+Effective obs (left)	109	104	137	125	146	139
+Effective obs (right)	61	56	111	106	44	42
+p	1	1	1	1	1	1
+q	2	2	2	2	2	2
+Standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						
