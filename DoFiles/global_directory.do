@@ -24,10 +24,14 @@ clear
 set more off
 global directorio C:\Users\isaac\Dropbox\Apps\ShareLaTeX\rd_information_bargaining
 
+*Set significance
 global star "star(* 0.1 ** 0.05 *** 0.01)"
+
+*Set covariates
 global controls = "mujer antiguedad salario_diario"
 
-
+*Set scheme
+set scheme white_tableau, perm
 
 	
 	
