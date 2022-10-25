@@ -1,0 +1,22 @@
+	(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	entablo_demanda	entablo_demanda	entablo_demanda	entablo_demanda	entablo_demanda	entablo_demanda
+						
+Conventional	-0.251	-0.260	0.0990	0.136	-0.351*	-0.444**
+	(0.161)	(0.158)	(0.103)	(0.104)	(0.213)	(0.175)
+Bias-corrected	-0.288*	-0.289*	0.107	0.135	-0.425**	-0.516***
+	(0.161)	(0.158)	(0.103)	(0.104)	(0.213)	(0.175)
+Robust	-0.288	-0.289	0.107	0.135	-0.425*	-0.516**
+	(0.187)	(0.184)	(0.125)	(0.127)	(0.252)	(0.208)
+						
+Observations	742	728	742	728	351	342
+Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
+bwselect	Manual	Manual	Manual	Manual	Manual	Manual
+vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
+Left bandwidth	1.228	1.228	72.11	72.11	0.642	0.642
+Right bandwidth	1.228	1.228	72.11	72.11	0.642	0.642
+Effective obs (left)	128	126	225	218	143	140
+Effective obs (right)	65	62	155	154	45	44
+p	1	1	1	1	1	1
+q	2	2	2	2	2	2
+Standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						

@@ -1,0 +1,22 @@
+	(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	demando_con_abogado_publico	demando_con_abogado_publico	demando_con_abogado_publico	demando_con_abogado_publico	demando_con_abogado_publico	demando_con_abogado_publico
+						
+Conventional	-0.395	-0.202	-0.120	-0.134	-0.0995	-0.0707
+	(0.294)	(0.211)	(0.104)	(0.103)	(0.280)	(0.250)
+Bias-corrected	-0.423	-0.183	-0.133	-0.147	-0.127	-0.0783
+	(0.294)	(0.211)	(0.104)	(0.103)	(0.280)	(0.250)
+Robust	-0.423	-0.183	-0.133	-0.147	-0.127	-0.0783
+	(0.336)	(0.240)	(0.130)	(0.127)	(0.350)	(0.312)
+						
+Observations	512	509	512	509	220	220
+Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
+bwselect	Manual	Manual	Manual	Manual	Manual	Manual
+vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
+Left bandwidth	0.714	0.714	64.83	64.83	0.651	0.651
+Right bandwidth	0.714	0.714	64.83	64.83	0.651	0.651
+Effective obs (left)	34	34	153	152	80	80
+Effective obs (right)	29	29	93	93	32	32
+p	1	1	1	1	1	1
+q	2	2	2	2	2	2
+Standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						
