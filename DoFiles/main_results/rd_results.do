@@ -18,8 +18,8 @@ version 17.0
 */
 
 
-use "$directorio\DB\survey_data_2m.dta", clear
-merge 1:1 id_actor using "$directorio\DB\treatment_data.dta", keep(3)
+use "$directory/DB/survey_data_2m.dta", clear
+merge 1:1 id_actor using "$directory/DB/treatment_data.dta", keep(3)
 
 keep if main_treatment!=1 & !missing(main_treatment)
 gen corte_dw = salario_diario>211 if !missing(salario_diario)
@@ -45,7 +45,7 @@ local controls nivel_de_felicidad  high_school reclutamiento dummy_confianza hor
 
 *-------------------------------------------------------------------------------
 
-foreach var of varlist conflicto_arreglado {
+foreach var of varlist demando_con_abogado_privado{
 foreach t in 2 3 {
 ***********************		   		Tenure				************************
 * Pooled
@@ -56,10 +56,10 @@ rdbwselect `var' antiguedad if main_treatment==`t', c(2.67) all kernel(triangula
 	local b_l = `e(b_mserd)' 
 
 rdrobust `var' antiguedad if main_treatment==`t', c(2.67) all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) h(`h_l' `h_r') b(`b_l' `b_r')
-outreg2 using "$directorio/Tables/reg_results/rd_`var'_t`t'.xls", replace addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+outreg2 using "$directory/Tables/reg_results/rd_`var'_t`t'.xls", replace addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 
 rdrobust `var' antiguedad if main_treatment==`t', c(2.67) all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) covs(salario_diario `controls') h(`h_l' `h_r') b(`b_l' `b_r')
-outreg2 using "$directorio/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+outreg2 using "$directory/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 
 
 ***********************		   		  Wage				************************
@@ -71,10 +71,10 @@ rdbwselect `var' salario_diario if main_treatment==`t', c(211) all kernel(triang
 	local b_l = `e(b_mserd)' 
 
 rdrobust `var' salario_diario if main_treatment==`t', c(211) all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) h(`h_l' `h_r') b(`b_l' `b_r')
-outreg2 using "$directorio/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+outreg2 using "$directory/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 
 rdrobust `var' salario_diario if main_treatment==`t', c(211) all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) covs(antiguedad `controls') h(`h_l' `h_r') b(`b_l' `b_r')
-outreg2 using "$directorio/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
+outreg2 using "$directory/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)') 
 
 
 ********************		   	 Tenure & Wage				********************
@@ -89,10 +89,10 @@ rdbwselect `var' index if main_treatment==`t' & inlist(quadrant,2,4), c(0) all k
 	local b_l = `e(b_mserd)' 
 	
 rdrobust `var' index if main_treatment==`t' & inlist(quadrant,2,4), c(0) all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) h(`h_l' `h_r') b(`b_l' `b_r')
-outreg2 using "$directorio/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)')  
+outreg2 using "$directory/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)')  
 
 rdrobust `var' index if main_treatment==`t' & inlist(quadrant,2,4), c(0) all kernel(triangular) p(1) q(2) vce(nncluster fecha_alta 5) covs(`controls') h(`h_l' `h_r') b(`b_l' `b_r')
-outreg2 using "$directorio/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)')  
+outreg2 using "$directory/Tables/reg_results/rd_`var'_t`t'.xls", addstat(Left bandwidth,  `h_l', Right bandwidth,  `h_r', Effective obs (left), e(N_h_l), Effective obs (right), e(N_h_r), p, e(p), q, e(q)) addtext(Kernel,  `e(kernel)', bwselect, `e(bwselect)', vce, `e(vce_select)')  
 
 
 }

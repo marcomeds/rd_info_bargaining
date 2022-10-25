@@ -10,17 +10,17 @@ Author : Isaac Meza, isaac.meza@berkeley.edu
 ********************************************************************************
 *									  TD							  		   *
 ********************************************************************************
-do "$directorio\DoFiles\cleaning\cleaning_admin.do"
+do "$directorio/DoFiles/cleaning/cleaning_admin.do"
 
 
 ********************************************************************************
 *									  2W			   				  		   *
 ********************************************************************************
-do "$directorio\DoFiles\cleaning\cleaning_survey_2w.do"
+do "$directorio/DoFiles/cleaning/cleaning_survey_2w.do"
 
 
 ********************************************************************************
 *									  2M			   				  		   *
 ********************************************************************************
-do "$directorio\DoFiles\cleaning\cleaning_survey_2m.do"
+do "$directorio/DoFiles/cleaning/cleaning_survey_2m.do"
 

@@ -7,18 +7,18 @@ Author : Isaac Meza
 ********************************************************************************
 *									  ARM 2							  		   *
 ********************************************************************************
-import excel "$directorio\Raw\base_control_encuestas.xlsx", sheet("ALEATORIZACIONES") ///
+import excel "$directory/Raw/base_control_encuestas.xlsx", sheet("ALEATORIZACIONES") ///
 	firstrow clear
 rename tratamiento tratamiento_grupo
 rename fechas date
-save "$directorio\_aux\randomization_arm2.dta", replace
+save "$directory/_aux/randomization_arm2.dta", replace
 
 
 
 ********************************************************************************
 *						   	Names of 'demandados'					  		   *
 ********************************************************************************
-import excel "$directorio\Raw\base_control_encuestas.xlsx", sheet("T_DEMANDADOS") ///
+import excel "$directory/Raw/base_control_encuestas.xlsx", sheet("T_DEMANDADOS") ///
 	firstrow clear
 *Drop example row	
 drop if _n==1	
@@ -29,7 +29,7 @@ keep id_main nombre_demandado
 bysort id_main : gen j=_n
 reshape wide nombre_demandado, i(id_main) j(j)
 
-save "$directorio\_aux\demandados_tr.dta", replace
+save "$directory/_aux/demandados_tr.dta", replace
 	  
 
 
@@ -37,7 +37,7 @@ save "$directorio\_aux\demandados_tr.dta", replace
 *									  TD							  		   *
 ********************************************************************************
 *Join nivel_educativo
-insheet using "$directorio\Raw\gf2w.csv", clear
+insheet using "$directory/Raw/gf2w.csv", clear
 keep foliotrabajador Hastaqu
 rename foliotrabajador id_actor
 duplicates drop 
@@ -57,7 +57,7 @@ tempfile temp
 save `temp'
 
 
-import delimited "$directorio\_aux\treatment_data.csv", clear
+import delimited "$directory/_aux/treatment_data.csv", clear
 duplicates drop
 drop if missing(fecha_alta)
 drop if id_main<16 & !missing(id_main)
@@ -73,7 +73,7 @@ foreach var of varlist fecha_alta fecha_salida fecha_entrada c_fecha_entrada cit
 	drop `var'
 	rename `var'_ `var'
 	format `var' %td
-	}				  
+}				  
 			
 
 *Join nivel_educativo
@@ -147,23 +147,23 @@ gen mon_tue = inrange(dow,1,2)
 ****************************************
 
 *Separate arm 2 into 2A & 2B
-merge m:1 date using "$directorio\_aux\randomization_arm2.dta", nogen keep(1 3)
-replace grupo_tratamiento = tratamiento_grupo if grupo_tratamiento=="2" & !missing(tratamiento_grupo)
+merge m:1 date using "$directory/_aux/randomization_arm2.dta", nogen keep(1 3)
+replace grupo_tratamiento = tratamiento_grupo if grupo_tratamiento == "2" & !missing(tratamiento_grupo)
 replace grupo_tratamiento = "2A" if grupo_tratamiento=="2"
 
 *Treatment variable with all arms
 encode grupo_tratamiento, gen(treatment)
 
-*Main treatment variable
+* Main treatment variable
 gen tratamiento = substr(grupo_tratamiento,1,1)
 label define main_tr  1 "Control" 2 "Calculator" 3 "Calculator + letter"
 encode tratamiento, gen(main_treatment) 
 label values main_treatment main_tr
-*Keep sample when experiment was ran for the 3 treatments
+* Keep sample when experiment was ran for the 3 treatments
 replace main_treatment = . if fecha_alta>=date("20/08/2018","DMY")
 
 
-*A/B treatment
+* A/B treatment
 gen grupo = substr(grupo_tratamiento,2,1)
 label define ab_tr  1 "A" 2 "B" 
 encode grupo, gen(ab_treatment) 
@@ -180,7 +180,7 @@ replace ab_treatment = . if inrange(date,date("19-09-2017","DMY"),date("20-08-20
 drop tratamiento_voluntario grupo_tratamiento tratamiento_grupo tratamiento grupo 
 
 *Paste names of 'demandados'
-merge m:1 id_main using "$directorio\_aux\demandados_tr.dta", nogen keep(1 3)
+merge m:1 id_main using "$directory/_aux/demandados_tr.dta", nogen keep(1 3)
 replace nombre_demandado1 = nombre_empresa if missing(nombre_demandado1)
 drop nombre_empresa
 
@@ -194,4 +194,4 @@ replace prob_ganar_treat = prob_ganar_treat/100 if prob_ganar_treat>1
 *keep if inrange(date,date("01-01-2015","DMY"),date("01-02-2018","DMY"))
 *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-save "$directorio\DB\treatment_data.dta", replace
+save "$directory/DB/treatment_data.dta", replace
