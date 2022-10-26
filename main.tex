@@ -168,10 +168,12 @@ What do we learn from this?
 %__________________________________________________________________________
 %__________________________________________________________________________
 
+\clearpage
+
 \begin{landscape}
 \begin{table}[H]
-\caption{Regression Discontinuity - Effect on solved conflict}
-\label{rd_sett_1}
+\caption{Regression discontinuity - Effect on solved conflict}
+\label{rd_sett}
 \begin{center}
 \scriptsize{\input{./Tables/rd_sett.tex}}
 \end{center}
@@ -183,10 +185,44 @@ Table reports the RD coefficients obtained for the discontinuities in the calcul
 \end{table}
 \end{landscape}
 
-\newpage
+\clearpage
+
+\begin{landscape}
+\begin{table}[H]
+\caption{Regression discontinuity - Effect on suing}
+\label{rd_sued}
+\begin{center}
+\scriptsize{\input{./Tables/rd_sued.tex}}
+\end{center}
+\scriptsize{
+Table reports the RD coefficients obtained for the discontinuities in the calculator prediction. Columns (1) and (2) report the coefficients for the discontinuity along the tenure dimension. Columns (3) and (4) report the coefficients for the discontinuity along the wage dimension. Columns (5) and (6) report the coefficients for the discontinuity along both tenure and wage dimensions, taking the euclidean distance from the join cutoff. The upper panel reports the coefficients for the calculator treatment arm. The lower panel reports the coefficients for the calculator + letter treatment arm. Conventional RD coefficients report the estimates with conventional variance estimator. Robust RD coefficients report the bias-corrected estimates with robust variance estimator.}
+
+ \scriptsize 
+\textit{Do file: } \texttt{rd\_results.do}
+\end{table}
+\end{landscape}
+
+\clearpage
+
+\begin{landscape}
+\begin{table}[H]
+\caption{Regression discontinuity - Effect on suing with a public lawyer}
+\label{rd_sued_public}
+\begin{center}
+\scriptsize{\input{./Tables/rd_sued_public.tex}}
+\end{center}
+\scriptsize{
+Table reports the RD coefficients obtained for the discontinuities in the calculator prediction. Columns (1) and (2) report the coefficients for the discontinuity along the tenure dimension. Columns (3) and (4) report the coefficients for the discontinuity along the wage dimension. Columns (5) and (6) report the coefficients for the discontinuity along both tenure and wage dimensions, taking the euclidean distance from the join cutoff. The upper panel reports the coefficients for the calculator treatment arm. The lower panel reports the coefficients for the calculator + letter treatment arm. Conventional RD coefficients report the estimates with conventional variance estimator. Robust RD coefficients report the bias-corrected estimates with robust variance estimator.}
+
+ \scriptsize 
+\textit{Do file: } \texttt{rd\_results.do}
+\end{table}
+\end{landscape}
+
+\clearpage
 
 \begin{figure}[H]
-     \caption{RD plots (Calculator treatment)}
+     \caption{RD plots (Calculator treatment) - Effect on solved conflict}
     \label{rd_t2}
 \begin{center}
 \begin{subfigure}{0.31\textwidth}
@@ -204,7 +240,7 @@ Table reports the RD coefficients obtained for the discontinuities in the calcul
     \end{subfigure}
   \end{center}
   
-    \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines. \textcolor{yellow}{Me falta ajustar cosas de inferencia cuando uso los splines.}
+    \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines.
 %\textit{Scripts: }  \texttt{plot\_rd.do}
 \end{figure}
 
@@ -215,9 +251,10 @@ Table reports the RD coefficients obtained for the discontinuities in the calcul
 %__________________________________________________________________________
 %__________________________________________________________________________
 
+\clearpage
 
 \begin{figure}[H]
-     \caption{RD plots (Calculator + letter treatment)}
+     \caption{RD plots (Calculator + letter treatment) - Effect on solved conflict}
     \label{rd_t3}
 \begin{center}
 \begin{subfigure}{0.31\textwidth}
@@ -235,11 +272,34 @@ Table reports the RD coefficients obtained for the discontinuities in the calcul
     \end{subfigure}
   \end{center}
   
-    \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines. \textcolor{yellow}{Me falta ajustar cosas de inferencia cuando uso los splines.}
+    \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines.
 %\textit{Scripts: }  \texttt{plot\_rd.do}
 \end{figure}
 
+\clearpage
 
+\begin{figure}[H]
+     \caption{RD plots (Calculator + letter treatment) - Effect on talking to a lawyer}
+    \label{rd_t3}
+\begin{center}
+\begin{subfigure}{0.31\textwidth}
+
+\caption{Tenure}
+        \includegraphics[width=\textwidth]{Figuras/rdplot__tenure_3.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.31\textwidth}
+\caption{Daily wage}
+        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_dw_3.pdf}
+    \end{subfigure}        
+    \begin{subfigure}{0.31\textwidth}
+\caption{Tenure \& Daily wage}
+        \includegraphics[width=\textwidth]{Figuras/rdplot_conflicto_arreglado_2_4_3.pdf}
+    \end{subfigure}
+  \end{center}
+  
+    \scriptsize Regression discontinuity plots using 1) local polynomial smoothing 2) B-splines.
+%\textit{Scripts: }  \texttt{plot\_rd.do}
+\end{figure}
 
 
 %__________________________________________________________________________
