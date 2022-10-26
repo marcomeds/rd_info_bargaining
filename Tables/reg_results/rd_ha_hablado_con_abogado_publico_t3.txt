@@ -1,0 +1,22 @@
+	(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	ha_hablado_con_abogado_publico	ha_hablado_con_abogado_publico	ha_hablado_con_abogado_publico	ha_hablado_con_abogado_publico	ha_hablado_con_abogado_publico	ha_hablado_con_abogado_publico
+						
+Conventional	0.175	-0.0267	0.227	0.185	-0.402	-0.508**
+	(0.143)	(0.106)	(0.148)	(811.0)	(0.257)	(0.234)
+Bias-corrected	0.241*	0.0269	0.281*	0.227	-0.495*	-0.591**
+	(0.143)	(0.106)	(0.148)	(811.0)	(0.257)	(0.234)
+Robust	0.241	0.0269	0.281	0.227	-0.495	-0.591**
+	(0.154)	(0.125)	(0.179)	(997.7)	(0.310)	(0.283)
+						
+Observations	415	415	415	415	185	185
+Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
+bwselect	Manual	Manual	Manual	Manual	Manual	Manual
+vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
+Left bandwidth	0.921	0.921	41.42	41.42	0.547	0.547
+Right bandwidth	0.921	0.921	41.42	41.42	0.547	0.547
+Effective obs (left)	36	36	75	75	58	58
+Effective obs (right)	30	30	47	47	22	22
+p	1	1	1	1	1	1
+q	2	2	2	2	2	2
+Standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						

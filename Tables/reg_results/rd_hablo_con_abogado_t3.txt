@@ -1,0 +1,22 @@
+	(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	hablo_con_abogado	hablo_con_abogado	hablo_con_abogado	hablo_con_abogado	hablo_con_abogado	hablo_con_abogado
+						
+Conventional	0.138	0.0218	-0.0638	-0.129	0.277	0.443
+	(0.327)	(0.195)	(0.151)	(0.142)	(0.616)	(0.454)
+Bias-corrected	0.145	0.0587	-0.0794	-0.148	0.345	0.622
+	(0.327)	(0.195)	(0.151)	(0.142)	(0.616)	(0.454)
+Robust	0.145	0.0587	-0.0794	-0.148	0.345	0.622
+	(0.392)	(0.229)	(0.188)	(0.175)	(0.736)	(0.564)
+						
+Observations	423	423	423	423	187	187
+Kernel	Triangular	Triangular	Triangular	Triangular	Triangular	Triangular
+bwselect	Manual	Manual	Manual	Manual	Manual	Manual
+vce	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster	NNcluster
+Left bandwidth	0.909	0.909	66.17	66.17	0.384	0.384
+Right bandwidth	0.909	0.909	66.17	66.17	0.384	0.384
+Effective obs (left)	39	39	123	123	20	20
+Effective obs (right)	30	30	74	74	16	16
+p	1	1	1	1	1	1
+q	2	2	2	2	2	2
+Standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						

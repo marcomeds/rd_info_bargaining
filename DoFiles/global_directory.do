@@ -22,7 +22,12 @@ version 17.0
 
 clear
 set more off
-global directorio C:\Users\isaac\Dropbox\Apps\ShareLaTeX\rd_information_bargaining
+local user "Marco"
+
+if "`user'" == "Marco" {
+	global directory "/Users/marcomedina/ITAM Seira Research Dropbox/Marco Alejandro Medina/rd_information_bargaining"
+	cd "$directory"
+}
 
 *Set significance
 global star "star(* 0.1 ** 0.05 *** 0.01)"
